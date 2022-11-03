@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		*{
+		margin:0; padding:0;
+		}
+		#main{
+		width:1000px;
+		height:1000px;
+		background:pink;
+		margin:0 auto;
+		}
+		#header{
+		width:1000px;
+		height:100px;
+		background:pink;
+		}
+		#content{
+		width:1000px;
+		height:800px;
+		background:#f1f1f1;
+		}
+		#footer{
+		width:1000px;
+		height:100px;
+		background:pink;
+		}
+		input,button{
+		padding:7px 10px;
+		font-weight:bold;
+		}
+		#reg{
+		margin:0 auto;
+		width:400px;
+		background:green;
+		padding:40px;
+		list-style:none;
+		}
+		#reg li{
+		margin:10px;
+		}
+		#reg input[type="text"],#reg input[type="password"],#dob input[type="text"]{
+		width:300px;
+		padding:7px 10px;
+		font-size:18px;
+		font-weight:bold;
+		border:1px solid blue;
+		border-radius:5px;
+		}
+		 
+	</style>
+	<script>
+		function fvalidate(){
+			var un=document.getElementById("unm").value;
+			un=un.trim();
+			if(un==""){
+				alert("Plz Enter Name");
+				document.getElementById("unm").focus();
+				document.getElementById("unm").value="";
+				return false;
+			}
+			if(un.length<3){
+				alert("Enter atleast 3 char Name");
+				document.getElementById("unm").focus();
+				return false;
+			}
+			
+			var mb=document.getElementById("mob").value;
+			mb=mb.trim();
+			if(mb==""){
+				alert("Plz Enter Mobile");
+				document.getElementById("mob").focus();
+				document.getElementById("mob").value="";
+				return false;
+			}
+			if( isNaN(mb) ){
+				alert("Enter only Numeric Mobile");
+				document.getElementById("mob").focus();
+				document.getElementById("mob").value="";
+				return false;
+			}
+			if(mb.length!=10){
+				alert("Enter only 10 digit Mobile");
+				document.getElementById("mob").focus();
+				return false;
+			}
+			if(mb[0]<7){
+				alert("Enter valid Mobile");
+				document.getElementById("mob").focus();
+				return false;
+			}
+			var em=document.getElementById("eml").value;
+			em=em.trim();
+			if(em==""){
+				alert("Plz Enter Email");
+				document.getElementById("eml").focus();
+				document.getElementById("eml").value="";
+				return false;
+			}else{
+				var x = em;
+				var atpos = x.indexOf("@");
+				var dotpos = x.lastIndexOf(".");
+				if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+					alert("Not a valid e-mail address");
+					document.getElementById("eml").focus();
+					return false;
+				}
+			}
+			var pw=document.getElementById("pwd").value;
+			pw=pw.trim();
+			if(pw==""){
+				alert("Plz Enter Password");
+				document.getElementById("pwd").focus();
+				document.getElementById("pwd").value="";
+				return false;
+			}
+			if(pw.length<4){
+				alert("Plz Enter atleast 4 char Password");
+				document.getElementById("pwd").focus();
+				document.getElementById("pwd").value="";
+				return false;
+			}
+			var rpw=document.getElementById("rpwd").value;
+			rpw=rpw.trim();
+			if(rpw!=pw){
+				alert("Retype Same Password Again");
+				document.getElementById("rpwd").focus();
+				document.getElementById("rpwd").value="";
+				return false;
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="main">
+		<div id="header" onclick="pr();"></div>
+		<div id="content">
+			<form action="process.php" method="get" onsubmit="return fvalidate();">
+				<ul id="reg">
+					<li><input type="text" id="unm" name="unm" placeholder="Enter Name"></li>
+					<li><input type="text" id="mob" name="mob" placeholder="Mobile Number"></li>
+					<li><input type="text" id="eml" name="eml" placeholder="E-mail"></li>
+					<li><input type="text" id="dob" name="dob" placeholder="date of birth"></li>
+					<li><input type="password" id="pwd" name="pwd" placeholder="Password"></li>
+					<li><input type="password" id="rpwd" name="rpwd" placeholder="Retype Password"></li>
+					<li><input type="checkbox" name="sp" id="sp" onchange="showp();" /> Show Password</li>
+					<li><input type="checkbox" name="tc" id="tc" onchange="tnc();" /> Agree with our TnC</li>
+					<li><input type="submit" id="regbtn" disabled value="Register"></li>
+				</ul>
+			</form>		
+		</div>
+		<div id="footer"></div>
+	</div>
+	<script>
+	function showp(){
+		if(document.getElementById("sp").checked==true){
+			document.getElementById("pwd").setAttribute('type','text');
+		}else{
+			document.getElementById("pwd").setAttribute('type','password');
+		}
+	}
+	function tnc(){
+		if(document.getElementById("tc").checked==true){
+			document.getElementById("regbtn").disabled=false;
+		}else{
+			document.getElementById("regbtn").disabled=true;
+		}
+	}
+	</script>
+	<script src="js/jquery.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/ui/jquery-ui.min.js"></script>
+	<script src="validate/jquery.validate.js"></script>
+	<script>
+		$( "#dob" ).datepicker({
+			inline: true,
+			changeMonth: true,
+			changeYear: true,
+			minDate: '-35Y', 
+			maxDate: '-20Y',
+			dateFormat:"yy-mm-dd"
+		});
+	</script>
+
+</body>
+</html>
